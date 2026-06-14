@@ -17,10 +17,16 @@ st.set_page_config(page_title="桃園市熱島效應分析", page_icon="🏙️"
 @st.cache_resource
 def init_gee():
     try:
-        ee.Initialize()
+        credentials = ee.ServiceAccountCredentials(
+            st.secrets["gcp_service_account"]["client_email"],
+            st.secrets["gcp_service_account"]["private_key"]
+        )
+        ee.Initialize(credentials)
     except Exception as e:
-        ee.Authenticate()
-        ee.Initialize()
+        # 直接把真實的錯誤訊息印在網頁上，並停止程式
+        st.error("⚠️ 金鑰讀取失敗，真實的錯誤訊息是：")
+        st.error(e)
+        st.stop()
 
 # 使用 @st.cache_data 讓網頁記住 Shapefile，不用每次都花時間讀取硬碟
 @st.cache_data
