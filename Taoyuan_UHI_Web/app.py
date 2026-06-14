@@ -4,6 +4,7 @@ import folium
 import geopandas as gpd
 from streamlit_folium import folium_static
 import datetime
+import os
 
 # ==========================================
 # 1. 網頁基本設定 (設定標題與寬版顯示)
@@ -64,9 +65,11 @@ end_date = st.sidebar.date_input("結束日期", datetime.date(2021, 8, 31))
 # 讓使用者設定雲量容忍度 (0~100%)
 cloud_tolerance = st.sidebar.slider("最高雲量容忍度 (%)", min_value=0, max_value=100, value=30, step=5)
 
-# ⚠️ 注意：請確保這裡是你電腦中真實的 Shapefile 路徑
-# ✅ 正確的雲端相對路徑
-SHP_PATH = "./Shapefile/TOWN_MOI_1140318.shp"
+# 【終極路徑寫法】：自動抓取 app.py 所在的資料夾，並組合出正確路徑
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# ⚠️ 請務必確認下面引號內的 "Shapefile" 與 "TOWN_MOI_1140318.shp" 大小寫與 GitHub 上完全一模一樣！
+SHP_PATH = os.path.join(current_dir, "Shapefile", "TOWN_MOI_1140318.shp")
+
 
 # ==========================================
 # 5. 後端運算邏輯 (按下按鈕後才會執行)
