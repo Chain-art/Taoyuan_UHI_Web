@@ -65,7 +65,8 @@ end_date = st.sidebar.date_input("結束日期", datetime.date(2021, 8, 31))
 cloud_tolerance = st.sidebar.slider("最高雲量容忍度 (%)", min_value=0, max_value=100, value=30, step=5)
 
 # ⚠️ 注意：請確保這裡是你電腦中真實的 Shapefile 路徑
-SHP_PATH = "C:\\Users\\chihi\\Downloads\\Landsat 8\\Shapefile\\TOWN_MOI_1140318.shp"
+# ✅ 正確的雲端相對路徑
+SHP_PATH = "./Shapefile/TOWN_MOI_1140318.shp"
 
 # ==========================================
 # 5. 後端運算邏輯 (按下按鈕後才會執行)
