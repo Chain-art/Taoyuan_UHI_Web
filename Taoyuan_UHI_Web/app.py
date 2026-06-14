@@ -17,13 +17,13 @@ st.set_page_config(page_title="桃園市熱島效應分析", page_icon="🏙️"
 @st.cache_resource
 def init_gee():
     try:
+        # 關鍵修改：在第二個參數前面加上 key_data=
         credentials = ee.ServiceAccountCredentials(
             st.secrets["gcp_service_account"]["client_email"],
-            st.secrets["gcp_service_account"]["private_key"]
+            key_data=st.secrets["gcp_service_account"]["private_key"]
         )
         ee.Initialize(credentials)
     except Exception as e:
-        # 直接把真實的錯誤訊息印在網頁上，並停止程式
         st.error("⚠️ 金鑰讀取失敗，真實的錯誤訊息是：")
         st.error(e)
         st.stop()
